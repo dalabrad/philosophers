@@ -6,27 +6,35 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:05:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/07 12:44:39 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:13:41 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/philosophers.h"
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
+	t_philo	philo;
+
 	if (argc < 5 || argc > 6)
-    {
+	{
 		ft_putstr_fd("Introduced wrong number of arguments\n", 2);
 		return (EXIT_FAILURE);
-    }
+	}
 	else
 	{
-		printf("Number of philosophers : %s\n", argv[1]);
-		printf("Time to die : %s\n", argv[2]);
-		printf("Time to eat : %s\n", argv[3]);
-		printf("Time to sleep : %s\n", argv[4]);
+		philo.n_philo = (size_t)transform_argument(argv[1]);
+		philo.time_die = (size_t)transform_argument(argv[2]);
+		philo.time_eat = (size_t)transform_argument(argv[3]);
+		philo.time_sleep = (size_t)transform_argument(argv[4]);
 		if (argc == 6)
-			printf("N times philo must eat (opt) : %s\n", argv[5]);
+			philo.n_must_eat = (size_t)transform_argument(argv[5]);
+		printf("Number of philosophers : %zu\n", philo.n_philo);
+		printf("Time to die : %zu\n", philo.time_die);
+		printf("Time to eat : %zu\n", philo.time_eat);
+		printf("Time to sleep : %zu\n", philo.time_sleep);
+		if (argc == 6)
+			printf("N times philo must eat (opt) : %zu\n", philo.n_must_eat);
 	}
 	return (EXIT_SUCCESS);
 }

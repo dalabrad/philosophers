@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:19:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/07 11:22:31 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:14:19 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-int	ft_atoi(const char *str)
+static int	ft_atoi(const char *str)
 {
 	unsigned int	n;
 	int				sign;
@@ -44,4 +44,27 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (sign * n);
+}
+
+static int	check_argument(char *str)
+{
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+int	transform_argument(char *str)
+{
+	if (!check_argument(str))
+	{
+		ft_putstr_fd("Unvalid argument : ", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
+		exit (EXIT_FAILURE);
+	}
+	return (ft_atoi(str));
 }
