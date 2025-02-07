@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/07 15:25:34 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:32:20 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ typedef struct s_philo
 //	src/philo_error_msg.c
 int		error_msg(int err_id, char *arg);
 
-//  src/philo_string_utils.c
-//void	ft_putstr_fd(char *s, int fd);
+//  src/philo_transform_argument.c
 int		transform_argument(char *str);
 
 #endif
