@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:05:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/07 14:13:41 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:22:25 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char *argv[])
 
 	if (argc < 5 || argc > 6)
 	{
-		ft_putstr_fd("Introduced wrong number of arguments\n", 2);
+		error_msg(INPUT_ERROR, NULL);
 		return (EXIT_FAILURE);
 	}
 	else

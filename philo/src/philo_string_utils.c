@@ -6,13 +6,13 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:19:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/07 14:14:19 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:22:19 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
 
-void	ft_putstr_fd(char *s, int fd)
+/* void	ft_putstr_fd(char *s, int fd)
 {
 	if (s == NULL)
 		return ;
@@ -21,7 +21,7 @@ void	ft_putstr_fd(char *s, int fd)
 		write(fd, s, 1);
 		s++;
 	}
-}
+} */
 
 static int	ft_atoi(const char *str)
 {
@@ -61,10 +61,8 @@ int	transform_argument(char *str)
 {
 	if (!check_argument(str))
 	{
-		ft_putstr_fd("Unvalid argument : ", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putstr_fd("\n", STDERR_FILENO);
-		exit (EXIT_FAILURE);
+		error_msg(ARG_ERROR, str);
+		exit (ARG_ERROR);
 	}
 	return (ft_atoi(str));
 }
