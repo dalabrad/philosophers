@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:05:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/07 15:22:25 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:40:44 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char *argv[])
 {
-	t_philo	philo;
+	t_data	philo;
 
 	if (argc < 5 || argc > 6)
 	{
@@ -28,13 +28,13 @@ int	main(int argc, char *argv[])
 		philo.time_eat = (size_t)transform_argument(argv[3]);
 		philo.time_sleep = (size_t)transform_argument(argv[4]);
 		if (argc == 6)
-			philo.n_must_eat = (size_t)transform_argument(argv[5]);
+			philo.n_limit_meals = (long)transform_argument(argv[5]);
 		printf("Number of philosophers : %zu\n", philo.n_philo);
 		printf("Time to die : %zu\n", philo.time_die);
 		printf("Time to eat : %zu\n", philo.time_eat);
 		printf("Time to sleep : %zu\n", philo.time_sleep);
 		if (argc == 6)
-			printf("N times philo must eat (opt) : %zu\n", philo.n_must_eat);
+			printf("N times philo must eat (opt) : %zu\n", philo.n_limit_meals);
 	}
 	return (EXIT_SUCCESS);
 }
