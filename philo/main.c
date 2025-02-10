@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:05:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/10 18:08:06 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:09:26 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 	{
 		printf("Here the main program %s should start!!\n", argv[0]);
 /* 		//1) Parse from argv => check input format error and fill the data table.
-		parse_input(&table);
+		parse_input(&table, argv);
 		//2) Create the threads(philosophers) / mutex (forks), get the time ...
 		data_init(&table);
 		//3) Start the simulation
