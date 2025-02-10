@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/10 17:52:04 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:31:35 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@
 //							mutex:	  init, destroy, lock, unlock
 
 # define INPUT_ERROR 1
-# define ARG_ERROR 2
+# define ARG_NEG 2
+# define UNVALID_ARG 3
+# define ARG_TOO_BIG 4
 
 typedef pthread_mutex_t	t_mutex; // For ease of read.
 
@@ -34,7 +36,7 @@ typedef struct s_fork
 	int		fork_id;
 }	t_fork;
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 // PHILOSOPHER STRUCT
 typedef struct s_philo
@@ -71,7 +73,7 @@ struct s_data
 int		error_msg(int err_id, char *arg);
 void	error_exit(int err_id, char *arg);
 
-//  src/philo_transform_argument.c
-int		transform_argument(char *str);
+//	src/philo_parse_input.c
+void	parse_input(t_data *table, char **argv);
 
 #endif
