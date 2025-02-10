@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:06:22 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/10 17:54:40 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:58:47 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	error_msg(int err_id, char *arg)
 	ft_putstr_fd("Error: ", STDERR_FILENO);
 	if (err_id == INPUT_ERROR)
 	{
-		ft_putstr_fd("Please enter:\n\t'./philo number_of_philosophers ", 2);
+		ft_putstr_fd("Wrong input: Please enter:\n", 2);
+		ft_putstr_fd("\t'./philo number_of_philosophers ", 2);
 		ft_putstr_fd("time_to_die time_to_eat time_to_sleep ", 2);
 		ft_putstr_fd("(number_of_times_philosopher_must_eat)'.\n", 2);
 	}
