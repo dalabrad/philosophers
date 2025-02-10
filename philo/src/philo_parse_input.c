@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:10:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/10 19:20:10 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:54:25 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,24 @@ static long	ft_atol(const char *str)
 	return (result);
 }
 
+/* 	
+ * 	INPUT DATA 
+ *	=======================
+ *            -----ms----
+ *	./philo 5 600 300 200 [6] , [Optional]
+ * I neeed to:
+ * 		~ convert ms to μs (* 1e3) for timestamps.
+ * 		~ Check if timestamps are greater that 60ms (6e4 μs).
+*/
 void	parse_input(t_data *table, char **argv)
 {
 	table->n_philo = (size_t)ft_atol(argv[1]);
-	table->time_die = (size_t)ft_atol(argv[2]);
-	table->time_eat = (size_t)ft_atol(argv[3]);
-	table->time_sleep = (size_t)ft_atol(argv[4]);
+	table->time_die = (size_t)ft_atol(argv[2]) * 1e3;
+	table->time_eat = (size_t)ft_atol(argv[3]) * 1e3;
+	table->time_sleep = (size_t)ft_atol(argv[4]) * 1e3;
+	if (table->time_die < 6e4 || table->time_eat < 6e4
+		|| table->time_sleep < 6e4)
+		error_exit(ARG_TOO_SMALL, NULL);
 	if (argv[5])
 		table->n_limit_meals = ft_atol(argv[5]);
 	else

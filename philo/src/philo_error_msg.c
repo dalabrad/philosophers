@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:06:22 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/10 19:27:53 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:51:00 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	error_msg(int err_id, char *arg)
 		ft_putstr_fd(arg, STDERR_FILENO);
 		ft_putstr_fd(". Value of argument bigger that MAX_INT.\n", 2);
 	}
+	else if (err_id == ARG_TOO_SMALL)
+		ft_putstr_fd("value of time stamps must be greater than 60ms\n", 2);
 	return (err_id);
 }
 

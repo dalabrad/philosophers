@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/10 19:31:35 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:48:53 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define ARG_NEG 2
 # define UNVALID_ARG 3
 # define ARG_TOO_BIG 4
+# define ARG_TOO_SMALL 5
 
 typedef pthread_mutex_t	t_mutex; // For ease of read.
 
