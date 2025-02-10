@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/10 17:35:17 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:52:04 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ struct s_data
 
 //	src/philo_error_msg.c
 int		error_msg(int err_id, char *arg);
+void	error_exit(int err_id, char *arg);
 
 //  src/philo_transform_argument.c
 int		transform_argument(char *str);

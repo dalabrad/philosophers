@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:06:22 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/07 15:36:19 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:54:40 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,9 @@ int	error_msg(int err_id, char *arg)
 		ft_putstr_fd("\n", STDERR_FILENO);
 	}
 	return (err_id);
+}
+
+void	error_exit(int err_id, char *arg)
+{
+	exit (error_msg(err_id, arg));
 }
