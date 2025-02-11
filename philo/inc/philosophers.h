@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/10 19:48:53 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/11 10:07:44 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define UNVALID_ARG 3
 # define ARG_TOO_BIG 4
 # define ARG_TOO_SMALL 5
+# define NO_PHILO_ERROR 6
 
 typedef pthread_mutex_t	t_mutex; // For ease of read.
 
@@ -71,8 +72,8 @@ struct s_data
 };
 
 //	src/philo_error_msg.c
-int		error_msg(int err_id, char *arg);
-void	error_exit(int err_id, char *arg);
+int		error_msg(int err_id);
+void	error_exit(int err_id);
 
 //	src/philo_parse_input.c
 void	parse_input(t_data *table, char **argv);

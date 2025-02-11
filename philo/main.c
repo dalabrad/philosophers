@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:05:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/10 19:29:57 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/11 10:07:45 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	main(int argc, char **argv)
 		clean(&table); */
 	}
 	else
-		error_exit(INPUT_ERROR, NULL);
+		error_exit(INPUT_ERROR);
 	return (EXIT_SUCCESS);
 }
