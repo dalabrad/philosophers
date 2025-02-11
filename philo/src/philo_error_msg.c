@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:06:22 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/11 10:30:35 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/11 10:59:47 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	error_msg(int err_id)
 			"be greater than 60ms.\n", STDERR_FILENO);
 	else if (err_id == NO_PHILO_ERROR)
 		ft_putstr_fd("Number of philosophers must be at least 1.\n", 2);
+	else if (err_id == MALLOC_ERROR)
+		ft_putstr_fd("Malloc: failed allocating data.\n", 2);
 	return (err_id);
 }
 

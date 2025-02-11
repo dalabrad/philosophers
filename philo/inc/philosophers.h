@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/11 10:07:44 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/11 11:02:09 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define ARG_TOO_BIG 4
 # define ARG_TOO_SMALL 5
 # define NO_PHILO_ERROR 6
+# define MALLOC_ERROR 7
 
 typedef pthread_mutex_t	t_mutex; // For ease of read.
 
@@ -77,5 +78,8 @@ void	error_exit(int err_id);
 
 //	src/philo_parse_input.c
 void	parse_input(t_data *table, char **argv);
+
+//	src/philo_safe_functions.c
+void	*safe_malloc(size_t bytes);
 
 #endif
