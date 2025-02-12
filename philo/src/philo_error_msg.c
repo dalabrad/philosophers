@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:06:22 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/11 10:59:47 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:43:19 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,16 @@ static void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-/*
- * This function prints an error msg on STDERR_FLENO given the err_id.
- * it returns the err_id too so it can be used inside a return() or exit().
- */
-int	error_msg(int err_id)
+static int	error_msg_2(int err_id)
+{
+	ft_putstr_fd("Error: ", STDERR_FILENO);
+	if (err_id == WRONG_OPCODE)
+		ft_putstr_fd("Handle function received a wrong opcode.\n",
+			STDERR_FILENO);
+	return (err_id);
+}
+
+static int	error_msg(int err_id)
 {
 	ft_putstr_fd("Error: ", STDERR_FILENO);
 	if (err_id == INPUT_ERROR)
@@ -50,10 +55,27 @@ int	error_msg(int err_id)
 		ft_putstr_fd("Number of philosophers must be at least 1.\n", 2);
 	else if (err_id == MALLOC_ERROR)
 		ft_putstr_fd("Malloc: failed allocating data.\n", 2);
+	else
+		return (error_msg_2(err_id));
 	return (err_id);
 }
 
+/*
+ * This function prints an error msg on STDERR_FLENO given the err_id.
+ * and exits the program with err_id.
+ */
 void	error_exit(int err_id)
 {
 	exit (error_msg(err_id));
+}
+
+/*
+ * This function prints an error msg on STDERR_FLENO given the str.
+ * and exits the program with EXIT_FAILURE.
+ */
+void	error_str_exit(char	*str)
+{
+	ft_putstr_fd("Error: ", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	exit (EXIT_FAILURE);
 }
