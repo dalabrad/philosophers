@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/12 19:52:13 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/13 20:05:29 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ typedef struct s_data	t_data;
 typedef struct s_philo
 {
 	int			id;
-	long		meals_counter;
+	long		meal_counter;
 	bool		full;
 	long		last_meal_time; //time from last meal
 	pthread_t	thread_id; // A philosopher is a thread!!!
-	t_fork		*left_fork;
-	t_fork		*right_fork;
+	t_fork		*first_fork;
+	t_fork		*second_fork;
 	t_data		*data;
 }	t_philo;
 
@@ -97,5 +97,8 @@ void	*safe_malloc(size_t bytes);
 void	safe_mutex_handle(t_mutex *mutex, t_opcode opcode);
 void	safe_thread_handle(pthread_t *thread, void *(*routine)(void *),
 			void *data, t_opcode opcode);
+
+//	src/philo_data_inint.c
+void	data_init(t_data *table);
 
 #endif
