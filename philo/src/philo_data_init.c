@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:48:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/13 20:09:00 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/13 20:39:42 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	data_init(t_data *table)
 	size_t	i;
 
 	table->end_simulation = false;
+	table->all_threads_ready = false;
 	table->philos = (t_philo *)safe_malloc(sizeof(t_philo) * table->n_philo);
 	table->forks = (t_fork *)safe_malloc(sizeof(t_fork) * table->n_philo);
 	i = 0;

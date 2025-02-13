@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/13 20:05:29 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/13 20:36:20 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ struct s_data
 	long	n_limit_meals; // Optional!! , flag -1 if not entered in argv.
 	long	start_simulation;
 	bool	end_simulation; // true when a philo dies or all philos full
+	bool	all_threads_ready; // For a synchronizated start of the feast.
 	t_fork	*forks; // Array of forks
 	t_philo	*philos; //Array of philosophers
 };
