@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:48:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/13 20:39:42 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:08:58 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
  *	important to know:
  *		~ philo->id ---> [1, n_philo] is the number given to the philosopher.
  *		~ philo_position ---> [0, n_philo - 1] is the position of philo in array.
- *	- The philo with even id will try to first catch the fork at his left, i.e.
+ *	- The philo with odd id will try to first catch the fork at his left, i.e.
  *	  forks[philo_position], and then the right one.
- *	- The odd id philo will first try to cath the right fork 
+ *	- The even id philo will first try to cath the right fork 
  *	  (i.e. forks[(philo_position + 1) % n_philos]) the the left one.
 */
 static void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
@@ -28,7 +28,7 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
 	int	n_philos;
 
 	n_philos = philo->data->n_philo;
-	if (philo->id % 2)
+	if (philo->id % 2 == 0)
 	{
 		philo->first_fork = &forks[philo_position];
 		philo->second_fork = &forks[(philo_position + 1) % n_philos];
