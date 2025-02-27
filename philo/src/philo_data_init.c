@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:48:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/14 18:08:58 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:19:54 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
 */
 static void	philos_init(t_data *table)
 {
-	size_t	i;
+	long	i;
 	t_philo	*philo_ptr;
 
 	i = 0;
@@ -77,7 +77,7 @@ static void	philos_init(t_data *table)
 */
 void	data_init(t_data *table)
 {
-	size_t	i;
+	long	i;
 
 	table->end_simulation = false;
 	table->all_threads_ready = false;
