@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 16:25:38 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:41:38 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ struct s_data
 	long	time_eat;
 	long	time_sleep;
 	long	n_limit_meals; // Optional!! , flag -1 if not entered in argv.
-	long	start_simulation;
+	long	start_simulation; // time of start of simulation.
 	bool	end_simulation; // true when a philo dies or all philos full
 	bool	all_threads_ready; // For a synchronizated start of the feast.
 	t_fork	*forks; // Array of forks

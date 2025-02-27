@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 20:11:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 16:06:36 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:40:02 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*feast_simulation(void *data)
  * 2) Create a thread to monitor the deaths.
  * 3) Synchronize the beggining of the simulation:
  *      phread_create() -> philo starts running !!!
- *      but we want every1 starting simultaneously.abort
+ *      but we want every1 starting simultaneously.
  * 4) Join everyone.
 */
 void	feast_start(t_data *table)
@@ -55,5 +55,6 @@ void	feast_start(t_data *table)
 				feast_simulation, &(table->philos[i]), CREATE);
 			i++;
 		}
+		set_bool(&(table->table_mutex), &(table->all_threads_ready), true);
 	}
 }
