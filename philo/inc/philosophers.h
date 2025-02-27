@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 17:28:28 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:40:25 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,8 @@ long	get_long(t_mutex *mutex, long *long_ptr);
 
 //	src/philo_synchro_utils.c
 void	wait_all_threads(t_data *table);
+
+//	src/philo_time_utils.c
+long	get_time(t_time_code time_code);
 
 #endif
