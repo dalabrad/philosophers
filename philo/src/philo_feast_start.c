@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 20:11:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 16:54:08 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:00:23 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,28 @@ static void	one_philo(t_data *table)
 	//TO DO!!!
 }
 
+/*
+ * 0) Wait all philos --> synchronized start!!
+ * 1) Endless loop philo
+ * 	1.1) Check if philo is full --> end loop.
+ * 	1.2) Eat.
+ * 	1.3) Sleep.
+ * 	1.4) Think.
+*/
 void	*feast_simulation(void *data)
 {
-	t_philo	*philo_ptr;
+	t_philo	*philo;
 
-	philo_ptr = (t_philo *)data;
-	wait_all_threads(philo_ptr->data);
+	philo = (t_philo *)data;
+	wait_all_threads(philo->data);
+	while(!simulation_finished(philo->data))
+	{
+		if (philo->full) // TODO THREAD SAFE?!?
+			return (NULL);
+		eat(philo); //TO DO
+		sleep(philo); //TO DO ---> I need precise usleep()!!!
+		think(philo); // TO DO
+	}
 	return (NULL);
 }
 
@@ -55,6 +71,13 @@ void	feast_start(t_data *table)
 				feast_simulation, &(table->philos[i]), CREATE);
 			i++;
 		}
-		set_bool(&(table->table_mutex), &(table->all_threads_ready), true);
+	}
+	table->start_simulation = get_time(MILISECOND);
+	set_bool(&(table->table_mutex), &(table->all_threads_ready), true);
+	i = 0;
+	while (i < table->n_philo)
+	{
+		safe_thread_handle(&(table->philos[i].thread_id), NULL, NULL, JOIN);
+		i++;
 	}
 }

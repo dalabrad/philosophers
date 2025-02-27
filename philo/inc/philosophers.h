@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 17:40:25 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:11:38 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,6 @@ void	wait_all_threads(t_data *table);
 
 //	src/philo_time_utils.c
 long	get_time(t_time_code time_code);
+void	precise_usleep(long usec, t_data *table);
 
 #endif
