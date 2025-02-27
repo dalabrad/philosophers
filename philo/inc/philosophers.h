@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 16:06:33 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:25:38 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,12 @@ void	safe_thread_handle(pthread_t *thread, void *(*routine)(void *),
 
 //	src/philo_data_inint.c
 void	data_init(t_data *table);
+
+//	src/philo_getters_setters.c
+void	set_bool(t_mutex *mutex, bool *dest, bool value);
+bool	get_bool(t_mutex *mutex, bool *bool_ptr);
+bool	simulation_finished(t_data *table);
+void	set_long(t_mutex *mutex, long *dest, long value);
+long	get_long(t_mutex *mutex, long *long_ptr);
 
 #endif
