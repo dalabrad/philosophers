@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 18:11:38 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 21:26:13 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@
 # define MALLOC_ERROR 7
 # define WRONG_OPCODE 8
 
+// Colors for the output : nice for debugging 
+
+# define R   "\033[1;31m"  // Bold Red
+# define G   "\033[1;32m"  // Bold Green
+# define Y   "\033[1;33m"  // Bold Yellow
+# define B   "\033[1;34m"  // Bold Blue
+# define M   "\033[1;35m"  // Bold Magenta
+# define C   "\033[1;36m"  // Bold Cyan
+# define W   "\033[1;37m"  // Bold White
+# define RST "\033[0m"     // Reset Color
+
 typedef enum e_opcode
 {
 	LOCK,
@@ -49,6 +60,16 @@ typedef enum e_time_code
 	MILISECOND,
 	MICROSECOND,
 }	t_time_code;
+
+typedef enum e_philo_status
+{
+	TAKE_FIRST_FORK,
+	TAKE_SECOND_FORK,
+	EATING,
+	SLEEPING,
+	THINKING,
+	DIED,
+}	t_philo_status;
 
 typedef pthread_mutex_t	t_mutex; // For ease of read.
 
@@ -92,6 +113,7 @@ struct s_data
 	t_fork	*forks; // Array of forks
 	t_philo	*philos; //Array of philosophers
 	t_mutex	table_mutex; //Avoid races while reading from data table
+	t_mutex	write_mutex; //To print philo status thread safe.
 };
 
 //	src/philo_error_msg.c
@@ -123,5 +145,8 @@ void	wait_all_threads(t_data *table);
 //	src/philo_time_utils.c
 long	get_time(t_time_code time_code);
 void	precise_usleep(long usec, t_data *table);
+
+//	src/philo_write_utils.c
+void	write_status(t_philo_status status, t_philo *philo, bool debug);
 
 #endif
