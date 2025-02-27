@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 20:11:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/13 20:40:18 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:06:36 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	*feast_simulation(void *data)
 */
 void	feast_start(t_data *table)
 {
-	size_t	i;
+	long	i;
 
 	if (table->n_limit_meals == 0)
 		return ;
@@ -48,10 +48,12 @@ void	feast_start(t_data *table)
 		one_philo(table);
 	else
 	{
+		i = 0;
 		while (i < table->n_philo)
 		{
 			safe_thread_handle(&(table->philos[i].thread_id),
 				feast_simulation, &(table->philos[i]), CREATE);
+			i++;
 		}
 	}
 }

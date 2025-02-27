@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:10:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/11 10:11:15 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:06:35 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ static long	ft_atol(const char *str)
 */
 void	parse_input(t_data *table, char **argv)
 {
-	table->n_philo = (size_t)ft_atol(argv[1]);
+	table->n_philo = (long)ft_atol(argv[1]);
 	if (table->n_philo == 0)
 		error_exit(NO_PHILO_ERROR);
-	table->time_die = (size_t)ft_atol(argv[2]) * 1e3;
-	table->time_eat = (size_t)ft_atol(argv[3]) * 1e3;
-	table->time_sleep = (size_t)ft_atol(argv[4]) * 1e3;
+	table->time_die = (long)ft_atol(argv[2]) * 1e3;
+	table->time_eat = (long)ft_atol(argv[3]) * 1e3;
+	table->time_sleep = (long)ft_atol(argv[4]) * 1e3;
 	if (table->time_die < 6e4 || table->time_eat < 6e4
 		|| table->time_sleep < 6e4)
 		error_exit(ARG_TOO_SMALL);
