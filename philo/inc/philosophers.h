@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 16:41:38 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:47:47 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,8 @@ bool	get_bool(t_mutex *mutex, bool *bool_ptr);
 bool	simulation_finished(t_data *table);
 void	set_long(t_mutex *mutex, long *dest, long value);
 long	get_long(t_mutex *mutex, long *long_ptr);
+
+//	src/philo_synchro_utils.c
+void	wait_all_threads(t_data *table);
 
 #endif

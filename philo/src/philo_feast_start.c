@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 20:11:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 16:40:02 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:47:34 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*feast_simulation(void *data)
 	t_philo	*philo_ptr;
 
 	philo_ptr = (t_philo *)data;
-	wait_all_threads();// TO DO!!!
+	wait_all_threads(data);
 	return (NULL);
 }
 
