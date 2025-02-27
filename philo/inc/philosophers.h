@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 16:47:47 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:28:28 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ typedef enum e_opcode
 	JOIN,
 	DETACH,
 }	t_opcode;
+
+typedef enum e_time_code
+{
+	SECOND,
+	MILISECOND,
+	MICROSECOND,
+}	t_time_code;
 
 typedef pthread_mutex_t	t_mutex; // For ease of read.
 
