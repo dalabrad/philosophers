@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:26:02 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 18:10:05 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:47:38 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ long	get_time(t_time_code time_code)
 		return ((tv.tv_sec * 1e6) + tv.tv_usec);
 	else
 		error_str_exit("Wrong time_code used for gettimeofday() call.\n");
+	return (-1);
 }
 
 /*

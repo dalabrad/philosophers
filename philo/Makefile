@@ -21,7 +21,7 @@ RESET = \033[0m
 
 $(NAME): $(OBJS) $(PHILO_LIB)
 	@echo "$(YELLOW)Compiling ./philo executable...$(RESET)"
-	$(CC)  $(CFLAGS) $(OBJS) $(MAIN) -o $(NAME) $(PHILO_LIB)
+	$(CC)  $(CFLAGS) $(OBJS) $(MAIN) -o $(NAME) $(PHILO_LIB) -pthread
 	@echo "$(GREEN)./philo executable created successfully.$(RESET)"
 
 $(PHILO_LIB) : 

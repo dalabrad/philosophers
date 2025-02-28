@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:48:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 16:19:54 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:15:32 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	philos_init(t_data *table)
 		philo_ptr->meal_counter = 0;
 		philo_ptr->full = false;
 		philo_ptr->data = table;
+		safe_mutex_handle(&(philo_ptr->philo_mutex), INIT);
 		assign_forks(philo_ptr, table->forks, i);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 20:11:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 18:00:23 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:46:52 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,37 @@
 static void	one_philo(t_data *table)
 {
 	//TO DO!!!
+	printf("Only %ld philo, function to be made!!!\n", table->n_philo);
+}
+
+/*
+ * Eat routine:
+ * 	1) Grab the forks (lock).
+ * 	2) Eat : update last meal time and meal counter. And bool philo->full
+ * 		if reached n_limit_meals.
+ * 	3) Release the forks (unlock).
+*/
+static void	eat(t_philo *philo)
+{
+	safe_mutex_handle(&(philo->first_fork->fork), LOCK);
+	write_status(TAKE_FIRST_FORK, philo, DEBUG_MODE);
+	safe_mutex_handle(&(philo->second_fork->fork), LOCK);
+	write_status(TAKE_SECOND_FORK, philo, DEBUG_MODE);
+	set_long(&(philo->philo_mutex), &(philo->last_meal_time),
+		get_time(MILISECOND));
+	philo->meal_counter++;
+	write_status(EATING, philo, DEBUG_MODE);
+	precise_usleep(philo->data->time_eat, philo->data);
+	if (philo->data->n_limit_meals > 0
+		&& philo->meal_counter == philo->data->n_limit_meals)
+		set_bool(&(philo->philo_mutex), &(philo->full), true);
+	safe_mutex_handle(&(philo->first_fork->fork), UNLOCK);
+	safe_mutex_handle(&(philo->second_fork->fork), UNLOCK);
+}
+
+static void	think(t_philo *philo)
+{
+	write_status(THINKING, philo, DEBUG_MODE);
 }
 
 /*
@@ -31,12 +62,13 @@ void	*feast_simulation(void *data)
 
 	philo = (t_philo *)data;
 	wait_all_threads(philo->data);
-	while(!simulation_finished(philo->data))
+	while (!simulation_finished(philo->data))
 	{
 		if (philo->full) // TODO THREAD SAFE?!?
 			return (NULL);
-		eat(philo); //TO DO
-		sleep(philo); //TO DO ---> I need precise usleep()!!!
+		eat(philo);
+		write_status(SLEEPING, philo, DEBUG_MODE);
+		precise_usleep(philo->data->time_sleep, philo->data);
 		think(philo); // TO DO
 	}
 	return (NULL);

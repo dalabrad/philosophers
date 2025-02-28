@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 21:26:13 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:12:29 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 //							mutex:	  init, destroy, lock, unlock
 # include <errno.h> //		error constants
 
+# define DEBUG_MODE 1
 # define INPUT_ERROR 1
 # define ARG_NEG 2
 # define UNVALID_ARG 3
@@ -93,6 +94,7 @@ typedef struct s_philo
 	t_fork		*first_fork;
 	t_fork		*second_fork;
 	t_data		*data;
+	t_mutex		philo_mutex; // Useful for races with the monitor
 }	t_philo;
 
 /* 	
@@ -148,5 +150,8 @@ void	precise_usleep(long usec, t_data *table);
 
 //	src/philo_write_utils.c
 void	write_status(t_philo_status status, t_philo *philo, bool debug);
+
+//	src/philo_feast_start.c
+void	feast_start(t_data *table);
 
 #endif
