@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/01 11:54:23 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/01 16:58:28 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 //							mutex:	  init, destroy, lock, unlock
 # include <errno.h> //		error constants
 
-# define DEBUG_MODE 0
+# define DEBUG_MODE 1
 # define INPUT_ERROR 1
 # define ARG_NEG 2
 # define UNVALID_ARG 3
@@ -155,13 +155,18 @@ void	precise_usleep(long usec, t_data *table);
 //	src/philo_write_utils.c
 void	write_status(t_philo_status status, t_philo *philo, bool debug);
 
-//	src/philo_feast_start.c
-void	*one_philo(void *data);
-void	*feast_simulation(void *data);
-void	feast_start(t_data *table);
+//	src/philo_actions.c
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_think(t_philo *philo);
 
-//	src/philo_monitor_feast.c
+//	src/philo_routines.c
+void	*one_philo(void *data);
+void	*philo_routine(void *data);
 void	*monitor_feast(void *data);
+
+//	src/philo_feast_simulation.c
+void	feast_simulation(t_data *table);
 
 //	src/philo_clean.c
 void	clean(t_data *table);

@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:05:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/28 19:11:04 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/01 16:48:09 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 	{
 		parse_input(&table, argv);
 		data_init(&table);
-		feast_start(&table);
+		feast_simulation(&table);
 		clean(&table);
 	}
 	else

@@ -1,16 +1,67 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_monitor_feast.c                              :+:      :+:    :+:   */
+/*   philo_routines.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/28 15:11:05 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/28 19:13:54 by dalabrad         ###   ########.fr       */
+/*   Created: 2025/03/01 16:39:02 by dalabrad          #+#    #+#             */
+/*   Updated: 2025/03/01 16:58:10 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
+
+/*
+ * One philo routine:
+ * 	1) Fake to lock (grab) the fork.
+ * 	2) Sleep until monitor busts the philo.
+*/
+void	*one_philo(void *data)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)data;
+	wait_all_threads(philo->data);
+	set_long(&(philo->philo_mutex), &(philo->last_meal_time),
+		get_time(MILISECOND));
+	increase_long(&(philo->data->table_mutex),
+		&(philo->data->nbr_threads_running));
+	write_status(TAKE_FIRST_FORK, philo, DEBUG_MODE);
+	while (!simulation_finished(philo->data))
+		usleep(200);
+	return (NULL);
+}
+
+/*
+ * Philo routine:
+ * 0) Wait all philos --> synchronized start!!
+ * 1) Endless loop philo
+ * 	1.1) Check if philo is full --> end loop.
+ * 	1.2) Eat.
+ * 	1.3) Sleep.
+ * 	1.4) Think.
+*/
+void	*philo_routine(void *data)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)data;
+	wait_all_threads(philo->data);
+	set_long(&(philo->philo_mutex), &(philo->last_meal_time),
+		get_time(MILISECOND));
+	increase_long(&(philo->data->table_mutex),
+		&(philo->data->nbr_threads_running));
+	while (!simulation_finished(philo->data))
+	{
+		if (get_bool(&philo->philo_mutex, &philo->full))
+			return (NULL);
+		philo_eat(philo);
+        philo_sleep(philo);
+		philo_think(philo);
+	}
+	return (NULL);
+}
 
 /*
  * This function checks if a philo died:
