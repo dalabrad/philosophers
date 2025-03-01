@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:14:34 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/28 13:16:39 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/01 11:45:00 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	write_status_debug(t_philo_status status, t_philo *philo,
 		printf(W "%ld" G " %d is sleeping.😴😴😴\n" RST, elapsed, philo->id);
 	else if (status == THINKING && !simulation_finished(philo->data))
 		printf(W "%ld" Y " %d is thinking.🤔🤔🤔\n" RST, elapsed, philo->id);
-	else if (status == DIED && !simulation_finished(philo->data))
-		printf(R "\t\t%ld %d died.💀💀💀\n" RST, elapsed, philo->id);
+	else if (status == DIED)
+		printf(R "\t\t💀💀💀%ld %d died.💀💀💀\n" RST, elapsed, philo->id);
 }
 
 /*
@@ -45,7 +45,7 @@ void	write_status(t_philo_status status, t_philo *philo, bool debug)
 	long	elapsed;
 
 	elapsed = get_time(MILISECOND) - philo->data->start_simulation;
-	if (philo->full) // Might not be thread safe and need to use get_bool()!!
+	if (get_bool(&philo->philo_mutex, &philo->full))
 		return ;
 	safe_mutex_handle(&(philo->data->write_mutex), LOCK);
 	if (debug)

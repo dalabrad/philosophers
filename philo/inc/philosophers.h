@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/28 13:12:29 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/01 11:54:23 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 //							mutex:	  init, destroy, lock, unlock
 # include <errno.h> //		error constants
 
-# define DEBUG_MODE 1
+# define DEBUG_MODE 0
 # define INPUT_ERROR 1
 # define ARG_NEG 2
 # define UNVALID_ARG 3
@@ -104,18 +104,20 @@ typedef struct s_philo
 */
 struct s_data
 {
-	long	n_philo;
-	long	time_die;
-	long	time_eat;
-	long	time_sleep;
-	long	n_limit_meals; // Optional!! , flag -1 if not entered in argv.
-	long	start_simulation; // time of start of simulation.
-	bool	end_simulation; // true when a philo dies or all philos full
-	bool	all_threads_ready; // For a synchronizated start of the feast.
-	t_fork	*forks; // Array of forks
-	t_philo	*philos; //Array of philosophers
-	t_mutex	table_mutex; //Avoid races while reading from data table
-	t_mutex	write_mutex; //To print philo status thread safe.
+	long		n_philo;
+	long		time_die;
+	long		time_eat;
+	long		time_sleep;
+	long		n_limit_meals; // Optional!! , flag -1 if not entered in argv.
+	long		start_simulation; // time of start of simulation.
+	bool		end_simulation; // true when a philo dies or all philos full
+	bool		all_threads_ready; // For a synchronizated start of the feast.
+	t_fork		*forks; // Array of forks
+	t_philo		*philos; //Array of philosophers
+	t_mutex		table_mutex; //Avoid races while reading from data table
+	t_mutex		write_mutex; //To print philo status thread safe.
+	pthread_t	monitor; // Monitor to check for dead philos.
+	long		nbr_threads_running;
 };
 
 //	src/philo_error_msg.c
@@ -143,6 +145,8 @@ long	get_long(t_mutex *mutex, long *long_ptr);
 
 //	src/philo_synchro_utils.c
 void	wait_all_threads(t_data *table);
+bool	all_threads_running(t_mutex *mutex, long *nbr_threads, long nbr_philos);
+void	increase_long(t_mutex *mutex, long *dest);
 
 //	src/philo_time_utils.c
 long	get_time(t_time_code time_code);
@@ -152,6 +156,14 @@ void	precise_usleep(long usec, t_data *table);
 void	write_status(t_philo_status status, t_philo *philo, bool debug);
 
 //	src/philo_feast_start.c
+void	*one_philo(void *data);
+void	*feast_simulation(void *data);
 void	feast_start(t_data *table);
+
+//	src/philo_monitor_feast.c
+void	*monitor_feast(void *data);
+
+//	src/philo_clean.c
+void	clean(t_data *table);
 
 #endif

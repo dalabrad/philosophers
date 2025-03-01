@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:10:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/27 16:06:35 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/02/28 20:04:02 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,4 @@ void	parse_input(t_data *table, char **argv)
 		table->n_limit_meals = ft_atol(argv[5]);
 	else
 		table->n_limit_meals = -1;
-	printf("Number of philosophers : %zu\n", table->n_philo);
-	printf("Time to die : %zu\n", table->time_die);
-	printf("Time to eat : %zu\n", table->time_eat);
-	printf("Time to sleep : %zu\n", table->time_sleep);
-	printf("N times philo must eat (opt) : %ld\n", table->n_limit_meals);
 }

@@ -6,16 +6,31 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 20:11:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/28 12:46:52 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/01 11:58:07 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
 
-static void	one_philo(t_data *table)
+/*
+ * One philo routine:
+ * 	1) Fake to lock (grab) the fork.
+ * 	2) Sleep until monitor busts the philo.
+*/
+void	*one_philo(void *data)
 {
-	//TO DO!!!
-	printf("Only %ld philo, function to be made!!!\n", table->n_philo);
+	t_philo	*philo;
+
+	philo = (t_philo *)data;
+	wait_all_threads(philo->data);
+	set_long(&(philo->philo_mutex), &(philo->last_meal_time),
+		get_time(MILISECOND));
+	increase_long(&(philo->data->table_mutex),
+		&(philo->data->nbr_threads_running));
+	write_status(TAKE_FIRST_FORK, philo, DEBUG_MODE);
+	while (!simulation_finished(philo->data))
+		usleep(200);
+	return (NULL);
 }
 
 /*
@@ -43,6 +58,9 @@ static void	eat(t_philo *philo)
 	safe_mutex_handle(&(philo->second_fork->fork), UNLOCK);
 }
 
+/*
+ * Needs a better implementation !!!
+*/
 static void	think(t_philo *philo)
 {
 	write_status(THINKING, philo, DEBUG_MODE);
@@ -62,14 +80,18 @@ void	*feast_simulation(void *data)
 
 	philo = (t_philo *)data;
 	wait_all_threads(philo->data);
+	set_long(&(philo->philo_mutex), &(philo->last_meal_time),
+		get_time(MILISECOND));
+	increase_long(&(philo->data->table_mutex),
+		&(philo->data->nbr_threads_running));
 	while (!simulation_finished(philo->data))
 	{
-		if (philo->full) // TODO THREAD SAFE?!?
+		if (get_bool(&philo->philo_mutex, &philo->full))
 			return (NULL);
 		eat(philo);
 		write_status(SLEEPING, philo, DEBUG_MODE);
 		precise_usleep(philo->data->time_sleep, philo->data);
-		think(philo); // TO DO
+		think(philo);
 	}
 	return (NULL);
 }
@@ -93,7 +115,8 @@ void	feast_start(t_data *table)
 	if (table->n_limit_meals == 0)
 		return ;
 	else if (table->n_philo == 1)
-		one_philo(table);
+		safe_thread_handle(&(table->philos[0].thread_id), one_philo,
+			&table->philos[0], CREATE);
 	else
 	{
 		i = 0;
@@ -104,6 +127,7 @@ void	feast_start(t_data *table)
 			i++;
 		}
 	}
+	safe_thread_handle(&(table->monitor), monitor_feast, table, CREATE);
 	table->start_simulation = get_time(MILISECOND);
 	set_bool(&(table->table_mutex), &(table->all_threads_ready), true);
 	i = 0;
@@ -112,4 +136,5 @@ void	feast_start(t_data *table)
 		safe_thread_handle(&(table->philos[i].thread_id), NULL, NULL, JOIN);
 		i++;
 	}
+	set_bool(&(table->table_mutex), &table->end_simulation, true);
 }
