@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:39:02 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/01 16:58:10 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/01 17:09:00 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*philo_routine(void *data)
 		if (get_bool(&philo->philo_mutex, &philo->full))
 			return (NULL);
 		philo_eat(philo);
-        philo_sleep(philo);
+		philo_sleep(philo);
 		philo_think(philo);
 	}
 	return (NULL);

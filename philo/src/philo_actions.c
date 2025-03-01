@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:40:52 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/01 16:58:08 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/01 17:08:32 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	philo_eat(t_philo *philo)
 */
 void	philo_sleep(t_philo *philo)
 {
-    write_status(SLEEPING, philo, DEBUG_MODE);
-    precise_usleep(philo->data->time_sleep, philo->data);
+	write_status(SLEEPING, philo, DEBUG_MODE);
+	precise_usleep(philo->data->time_sleep, philo->data);
 }
 
 /*
