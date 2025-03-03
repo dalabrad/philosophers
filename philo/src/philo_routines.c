@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:39:02 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/01 17:09:00 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:45:41 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,15 @@ void	*one_philo(void *data)
 
 /*
  * Philo routine:
- * 0) Wait all philos --> synchronized start!!
- * 1) Endless loop philo
- * 	1.1) Check if philo is full --> end loop.
- * 	1.2) Eat.
- * 	1.3) Sleep.
- * 	1.4) Think.
+ * 1) Wait all philos --> synchronized start!!
+ * 2) Set last meal time.
+ * 3) Increase the number of threads running -> for monitor synchro.
+ * 4) Desynchronize philo -> make some philos wait for a fair system.
+ * 5) Endless loop philo.
+ * 	5.1) Check if philo is full --> end loop.
+ * 	5.2) Eat.
+ * 	5.3) Sleep.
+ * 	5.4) Think.
 */
 void	*philo_routine(void *data)
 {
@@ -52,13 +55,14 @@ void	*philo_routine(void *data)
 		get_time(MILISECOND));
 	increase_long(&(philo->data->table_mutex),
 		&(philo->data->nbr_threads_running));
+	desynchronize_philo(philo);
 	while (!simulation_finished(philo->data))
 	{
 		if (get_bool(&philo->philo_mutex, &philo->full))
 			return (NULL);
 		philo_eat(philo);
 		philo_sleep(philo);
-		philo_think(philo);
+		philo_think(philo, false);
 	}
 	return (NULL);
 }

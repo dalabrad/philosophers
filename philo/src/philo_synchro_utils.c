@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:33:37 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/01 11:46:17 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:47:38 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,24 @@ void	increase_long(t_mutex *mutex, long *dest)
 	safe_mutex_handle(mutex, LOCK);
 	(*dest)++;
 	safe_mutex_handle(mutex, UNLOCK);
+}
+
+/* 	 
+ *	This function sets the starting point of each philo to get a fair
+ *	system. Makes some philos sleep to achieve a fair simulation.
+		~If philos even => make even philos wait 30ms.
+		~If philos odd => make odd philos think, without printing status.
+*/
+void	desynchronize_philo(t_philo *philo)
+{
+	if (philo->data->n_philo % 2 == 0)
+	{
+		if (philo->id % 2 == 0)
+			precise_usleep(3e4, philo->data);
+	}
+	else
+	{
+		if (philo->id % 2)
+			philo_think(philo, true);
+	}
 }

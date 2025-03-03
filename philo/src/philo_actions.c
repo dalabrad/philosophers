@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 16:40:52 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/01 17:08:32 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:42:22 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,31 @@ void	philo_sleep(t_philo *philo)
 }
 
 /*
- * Thinking action: NEED A BETTER IMPLEMENTATION!!!
-* 	1) Print the status.
+ * Thinking action: 
+ * even philos have a set time to think and system is symetric.
+ * odd philos is when we have to make the system fair.
+ * 	1) Print the status if we are in simulation.
+ *		we use philo_think() for the desynchronization!!
+ * 	2) If philos are odd, calculate the theoretical t_think.
+ * 		t_think = t_eat - 2 * t_sleep.
+ * 		~ If it is negative -> t_think = 0.
+ * 		~ If it is positive -> sleep for t_think * 0.42.
 */
-void	philo_think(t_philo *philo)
+void	philo_think(t_philo *philo, bool before_simulation)
 {
-	write_status(THINKING, philo, DEBUG_MODE);
+	long	t_eat;
+	long	t_sleep;
+	long	t_think;
+
+	if (!before_simulation)
+		write_status(THINKING, philo, DEBUG_MODE);
+	if (philo->data->n_philo % 2)
+	{
+		t_eat = philo->data->time_eat;
+		t_sleep = philo->data->time_sleep;
+		t_think = t_eat - 2 * t_sleep;
+		if (t_think < 0)
+			t_think = 0;
+		precise_usleep(t_think * 0.42, philo->data);
+	}
 }
