@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:14:34 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/01 11:45:00 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:05:55 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ void	write_status(t_philo_status status, t_philo *philo, bool debug)
 	{
 		if ((status == TAKE_FIRST_FORK || status == TAKE_SECOND_FORK)
 			&& !simulation_finished(philo->data))
-			printf(W "%ld" RST " %d has taken a fork.\n", elapsed, philo->id);
+			printf(W "%ld" RST " %d has taken a fork\n", elapsed, philo->id);
 		else if (status == EATING && !simulation_finished(philo->data))
-			printf(W "%ld" C " %d is eating.\n"RST, elapsed, philo->id);
+			printf(W "%ld" C " %d is eating\n"RST, elapsed, philo->id);
 		else if (status == SLEEPING && !simulation_finished(philo->data))
-			printf(W "%ld" G " %d is sleeping.\n" RST, elapsed, philo->id);
+			printf(W "%ld" G " %d is sleeping\n" RST, elapsed, philo->id);
 		else if (status == THINKING && !simulation_finished(philo->data))
-			printf(W "%ld" Y " %d is thinking.\n" RST, elapsed, philo->id);
+			printf(W "%ld" Y " %d is thinking\n" RST, elapsed, philo->id);
 		else if (status == DIED)
-			printf(R "%ld %d died.\n" RST, elapsed, philo->id);
+			printf(R "%ld %d died\n" RST, elapsed, philo->id);
 	}
 	safe_mutex_handle(&(philo->data->write_mutex), UNLOCK);
 }
