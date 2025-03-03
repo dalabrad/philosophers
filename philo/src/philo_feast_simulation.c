@@ -6,12 +6,17 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 20:11:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/03 16:56:54 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:01:52 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
 
+/*
+ * This function creates the philo threads.
+ *	~ If only 1 philo : use one_philo() routine.
+ *	~ Else : use philo_routine() for all philos.
+*/
 static void	create_philo_threads(t_data *table)
 {
 	long	i;
@@ -31,6 +36,9 @@ static void	create_philo_threads(t_data *table)
 	}
 }
 
+/*
+ * This function joins the philo threads.
+*/
 static void	join_philo_threads(t_data *table)
 {
 	long	i;
