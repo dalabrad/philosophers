@@ -6,11 +6,42 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 20:11:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/01 16:53:25 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/03 16:56:54 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
+
+static void	create_philo_threads(t_data *table)
+{
+	long	i;
+
+	if (table->n_philo == 1)
+	{
+		safe_thread_handle(&(table->philos[0].thread_id), one_philo,
+			&table->philos[0], CREATE);
+		return ;
+	}
+	i = 0;
+	while (i < table->n_philo)
+	{
+		safe_thread_handle(&(table->philos[i].thread_id),
+			philo_routine, &(table->philos[i]), CREATE);
+		i++;
+	}
+}
+
+static void	join_philo_threads(t_data *table)
+{
+	long	i;
+
+	i = 0;
+	while (i < table->n_philo)
+	{
+		safe_thread_handle(&(table->philos[i].thread_id), NULL, NULL, JOIN);
+		i++;
+	}
+}
 
 /*
  * ./philo 5 60 100 400 [6]
@@ -26,31 +57,14 @@
 */
 void	feast_simulation(t_data *table)
 {
-	long	i;
-
 	if (table->n_limit_meals == 0)
 		return ;
-	else if (table->n_philo == 1)
-		safe_thread_handle(&(table->philos[0].thread_id), one_philo,
-			&table->philos[0], CREATE);
 	else
-	{
-		i = 0;
-		while (i < table->n_philo)
-		{
-			safe_thread_handle(&(table->philos[i].thread_id),
-				philo_routine, &(table->philos[i]), CREATE);
-			i++;
-		}
-	}
+		create_philo_threads(table);
 	safe_thread_handle(&(table->monitor), monitor_feast, table, CREATE);
 	table->start_simulation = get_time(MILISECOND);
 	set_bool(&(table->table_mutex), &(table->all_threads_ready), true);
-	i = 0;
-	while (i < table->n_philo)
-	{
-		safe_thread_handle(&(table->philos[i].thread_id), NULL, NULL, JOIN);
-		i++;
-	}
+	join_philo_threads(table);
 	set_bool(&(table->table_mutex), &table->end_simulation, true);
+	safe_thread_handle(&(table->monitor), NULL, NULL, JOIN);
 }
