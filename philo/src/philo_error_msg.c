@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:06:22 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/04 11:05:36 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:55:12 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,6 @@ int	error_msg(int err_id)
 }
 
 /*
- * This function prints an error msg on STDERR_FLENO given the err_id.
- * and exits the program with err_id.
- */
-void	error_exit(int err_id)
-{
-	exit (error_msg(err_id));
-}
-
-/*
  * This function prints an error msg on STDERR_FLENO given the str
  * and returns int EXIT_FAILURE.
  */
@@ -79,16 +70,4 @@ int	error_str(char	*str)
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
 	return (EXIT_FAILURE);
-}
-
-/*
- * This function prints an error msg on STDERR_FLENO given the str,
- * and exits the program with EXIT_FAILURE.
- */
-void	error_str_exit(char	*str)
-{
-	ft_putstr_fd("Error: ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	exit (EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:53:51 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/04 11:14:13 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:03:31 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,25 @@ int	safe_mutex_handle(t_mutex *mutex, t_opcode opcode)
  * int status which is the return of the pthread_[create/join/detach]()
  * and opcode to know which of those functions it's beeing used.
 */
-static void	handle_thread_error(int status, t_opcode opcode)
+static int	handle_thread_error(int status, t_opcode opcode)
 {
 	if (status == 0)
-		return ;
+		return (0);
 	else if (status == EAGAIN)
-		error_str_exit("No resources to create another thread.\n");
+		error_str("No resources to create another thread.\n");
 	else if (status == EPERM)
-		error_str_exit("The caller does not have appropiate permission.\n");
+		error_str("The caller does not have appropiate permission.\n");
 	else if (status == EINVAL && opcode == CREATE)
-		error_str_exit("The value specified by attr is unvalid.\n");
+		error_str("The value specified by attr is unvalid.\n");
 	else if (status == EINVAL && (opcode == JOIN || opcode == DETACH))
-		error_str_exit("The value specified by thread is not joinable.\n");
+		error_str("The value specified by thread is not joinable.\n");
 	else if (status == ESRCH)
-		error_str_exit("No thread could be found corresponding to that" \
+		error_str("No thread could be found corresponding to that" \
 			"specified by the given thread ID, thread.\n");
 	else if (status == EDEADLK)
-		error_str_exit("A deadlock was detected or the value of thread" \
+		error_str("A deadlock was detected or the value of thread" \
 			"specifies the calling thread.\n");
+	return (status);
 }
 
 /*
@@ -96,16 +97,16 @@ static void	handle_thread_error(int status, t_opcode opcode)
  * 		~ pthread_detach()			--->		DETACH
  * 	And handles the possible errors caused when calling the former functions.
 */
-void	safe_thread_handle(pthread_t *thread, void *(*routine)(void *),
+int	safe_thread_handle(pthread_t *thread, void *(*routine)(void *),
 	void *data, t_opcode opcode)
 {
 	if (opcode == CREATE)
-		handle_thread_error(pthread_create(thread, NULL, routine, data),
-			opcode);
+		return (handle_thread_error(pthread_create(thread, NULL, routine, data),
+				opcode));
 	else if (opcode == JOIN)
-		handle_thread_error(pthread_join(*thread, NULL), opcode);
+		return (handle_thread_error(pthread_join(*thread, NULL), opcode));
 	else if (opcode == DETACH)
-		handle_thread_error(pthread_detach(*thread), opcode);
+		return (handle_thread_error(pthread_detach(*thread), opcode));
 	else
-		error_exit(WRONG_OPCODE);
+		return (error_msg(WRONG_OPCODE));
 }

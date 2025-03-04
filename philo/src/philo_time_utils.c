@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:26:02 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/28 12:47:38 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:54:28 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ long	get_time(t_time_code time_code)
 	struct timeval	tv;
 
 	if (gettimeofday(&tv, NULL))
-		error_str_exit("gettimeofday() failed\n");
+		error_str("gettimeofday() failed\n");
 	if (time_code == SECOND)
 		return (tv.tv_sec + (tv.tv_usec / 1e6));
 	else if (time_code == MILISECOND)
@@ -32,7 +32,7 @@ long	get_time(t_time_code time_code)
 	else if (time_code == MICROSECOND)
 		return ((tv.tv_sec * 1e6) + tv.tv_usec);
 	else
-		error_str_exit("Wrong time_code used for gettimeofday() call.\n");
+		error_str("Wrong time_code used for gettimeofday() call.\n");
 	return (-1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:10:56 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/04 11:14:32 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:55:21 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,14 @@ struct s_data
 
 //	src/philo_error_msg.c
 int		error_msg(int err_id);
-void	error_exit(int err_id);
 int		error_str(char	*str);
-void	error_str_exit(char	*str);
 
 //	src/philo_parse_input.c
 int		parse_input(t_data *table, char **argv);
 
 //	src/philo_safe_functions.c
 int		safe_mutex_handle(t_mutex *mutex, t_opcode opcode);
-void	safe_thread_handle(pthread_t *thread, void *(*routine)(void *),
+int		safe_thread_handle(pthread_t *thread, void *(*routine)(void *),
 			void *data, t_opcode opcode);
 
 //	src/philo_data_inint.c
