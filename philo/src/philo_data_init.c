@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:48:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/01 11:39:21 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/04 11:31:26 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
  *		~ sets the pointer to the data table to each philosopher.
  *		~ sets the pointers to the forks of each philo with assign_forks(). 
 */
-static void	philos_init(t_data *table)
+static int	philos_init(t_data *table)
 {
 	long	i;
 	t_philo	*philo_ptr;
@@ -62,10 +62,31 @@ static void	philos_init(t_data *table)
 		philo_ptr->meal_counter = 0;
 		philo_ptr->full = false;
 		philo_ptr->data = table;
-		safe_mutex_handle(&(philo_ptr->philo_mutex), INIT);
+		if (safe_mutex_handle(&(philo_ptr->philo_mutex), INIT) != 0)
+			return (EXIT_FAILURE);
 		assign_forks(philo_ptr, table->forks, i);
 		i++;
 	}
+	return (EXIT_SUCCESS);
+}
+
+static int	table_mutex_init(t_data	*table)
+{
+	long	i;
+
+	i = 0;
+	while (i < table->n_philo)
+	{
+		if (safe_mutex_handle(&(table->forks[i].fork), INIT) != 0)
+			return (EXIT_FAILURE);
+		table->forks[i].fork_id = i;
+		i++;
+	}
+	if (safe_mutex_handle(&(table->table_mutex), INIT) != 0)
+		return (EXIT_FAILURE);
+	if (safe_mutex_handle(&(table->write_mutex), INIT) != 0)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 /* 	
@@ -76,23 +97,31 @@ static void	philos_init(t_data *table)
  *		~ Initializes the data for each philo struct. See philos_init()
  *			for more info. 
 */
-void	data_init(t_data *table)
+int	data_init(t_data *table)
 {
-	long	i;
-
 	table->end_simulation = false;
 	table->all_threads_ready = false;
 	table->nbr_threads_running = 0;
-	table->philos = (t_philo *)safe_malloc(sizeof(t_philo) * table->n_philo);
-	table->forks = (t_fork *)safe_malloc(sizeof(t_fork) * table->n_philo);
-	i = 0;
-	while (i < table->n_philo)
+	table->philos = (t_philo *)malloc(sizeof(t_philo) * table->n_philo);
+	if (!table->philos)
+		return (error_msg(MALLOC_ERROR));
+	table->forks = (t_fork *)malloc(sizeof(t_fork) * table->n_philo);
+	if (!table->forks)
 	{
-		safe_mutex_handle(&(table->forks[i].fork), INIT);
-		table->forks[i].fork_id = i;
-		i++;
+		free(table->philos);
+		return (error_msg(MALLOC_ERROR));
 	}
-	safe_mutex_handle(&(table->table_mutex), INIT);
-	safe_mutex_handle(&(table->write_mutex), INIT);
-	philos_init(table);
+	if (table_mutex_init(table) != 0)
+	{
+		free(table->philos);
+		free(table->forks);
+		return (EXIT_FAILURE);
+	}
+	if (philos_init(table) != 0)
+	{
+		free(table->philos);
+		free(table->forks);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }

@@ -6,49 +6,36 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 10:53:51 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/12 20:19:52 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/04 11:14:13 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philosophers.h"
 
 /*
- * This function is a malloc with protection.  Allocates size_t bytes and if 
- * allocation fails exits the program with the error message of MALLOC_ERROR.
-*/
-void	*safe_malloc(size_t bytes)
-{
-	void	*rtrn;
-
-	rtrn = malloc(bytes);
-	if (!rtrn)
-		error_exit(MALLOC_ERROR);
-	return (rtrn);
-}
-
-/*
  * This function handles the errors of pthread_mutex_[action]() functions. Needs
  * int status which is the return of the pthread_mutex_[init/dest/lock/unlock]()
  * and opcode to know which function it's beeing used.
 */
-static void	handle_mutex_error(int status, t_opcode opcode)
+static int	handle_mutex_error(int status, t_opcode opcode)
 {
 	if (status == 0)
-		return ;
+		return (0);
 	else if (status == EINVAL && (opcode == LOCK || opcode == UNLOCK))
-		error_str_exit("The value specified by mutex is invalid.\n");
+		error_str("The value specified by mutex is invalid.\n");
 	else if (status == EINVAL && opcode == INIT)
-		error_str_exit("The value specified by attr is invalid.\n");
+		error_str("The value specified by attr is invalid.\n");
 	else if (status == EDEADLK)
-		error_str_exit("A deadlock would occur if the thread is blocked" \
+		error_str("A deadlock would occur if the thread is blocked" \
 			"waiting for mutex.\n");
 	else if (status == EPERM)
-		error_str_exit("The current thread does not hold a lock on mutex.\n");
+		error_str("The current thread does not hold a lock on mutex.\n");
 	else if (status == ENOMEM)
-		error_str_exit("Cannot allocate enough memory to create another" \
+		error_str("Cannot allocate enough memory to create another" \
 			"mutex.\n");
 	else if (status == EBUSY)
-		error_str_exit("Mutex is locked");
+		error_str("Mutex is locked");
+	return (status);
 }
 
 /*
@@ -61,18 +48,18 @@ static void	handle_mutex_error(int status, t_opcode opcode)
  * 		~ pthread_mutex_unlock()	--->		UNLOCK
  * And handles the possible errors caused when calling the former functions.
 */
-void	safe_mutex_handle(t_mutex *mutex, t_opcode opcode)
+int	safe_mutex_handle(t_mutex *mutex, t_opcode opcode)
 {
 	if (opcode == LOCK)
-		handle_mutex_error(pthread_mutex_lock(mutex), opcode);
+		return (handle_mutex_error(pthread_mutex_lock(mutex), opcode));
 	else if (opcode == UNLOCK)
-		handle_mutex_error(pthread_mutex_unlock(mutex), opcode);
+		return (handle_mutex_error(pthread_mutex_unlock(mutex), opcode));
 	else if (opcode == INIT)
-		handle_mutex_error(pthread_mutex_init(mutex, NULL), opcode);
+		return (handle_mutex_error(pthread_mutex_init(mutex, NULL), opcode));
 	else if (opcode == DESTROY)
-		handle_mutex_error(pthread_mutex_destroy(mutex), opcode);
+		return (handle_mutex_error(pthread_mutex_destroy(mutex), opcode));
 	else
-		error_exit(WRONG_OPCODE);
+		return (error_msg(WRONG_OPCODE));
 }
 
 /*

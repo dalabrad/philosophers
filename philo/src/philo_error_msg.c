@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 15:06:22 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/02/12 18:43:19 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/04 11:05:36 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	error_msg_2(int err_id)
 	return (err_id);
 }
 
-static int	error_msg(int err_id)
+int	error_msg(int err_id)
 {
 	ft_putstr_fd("Error: ", STDERR_FILENO);
 	if (err_id == INPUT_ERROR)
@@ -70,12 +70,25 @@ void	error_exit(int err_id)
 }
 
 /*
- * This function prints an error msg on STDERR_FLENO given the str.
+ * This function prints an error msg on STDERR_FLENO given the str
+ * and returns int EXIT_FAILURE.
+ */
+int	error_str(char	*str)
+{
+	ft_putstr_fd("Error: ", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	return (EXIT_FAILURE);
+}
+
+/*
+ * This function prints an error msg on STDERR_FLENO given the str,
  * and exits the program with EXIT_FAILURE.
  */
 void	error_str_exit(char	*str)
 {
 	ft_putstr_fd("Error: ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
 	exit (EXIT_FAILURE);
 }

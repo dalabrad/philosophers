@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:05:20 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/01 16:48:09 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/04 11:09:24 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ int	main(int argc, char **argv)
 
 	if (argc == 5 || argc == 6)
 	{
-		parse_input(&table, argv);
-		data_init(&table);
+		if (parse_input(&table, argv) != 0)
+			return (EXIT_FAILURE);
+		if (data_init(&table) != 0)
+			return (EXIT_FAILURE);
 		feast_simulation(&table);
 		clean(&table);
 	}
 	else
-		error_exit(INPUT_ERROR);
+		return (error_msg(INPUT_ERROR));
 	return (EXIT_SUCCESS);
 }
