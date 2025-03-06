@@ -53,3 +53,5 @@ dkms.conf
 
 #Executable name
 philo/philo
+
+*.txt
