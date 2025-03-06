@@ -6,7 +6,7 @@
 /*   By: dalabrad <dalabrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 20:11:55 by dalabrad          #+#    #+#             */
-/*   Updated: 2025/03/04 15:51:07 by dalabrad         ###   ########.fr       */
+/*   Updated: 2025/03/06 09:53:10 by dalabrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ void	feast_simulation(t_data *table)
 		table->start_simulation = get_time(MILISECOND);
 	}
 	else
+	{	
 		set_bool(&(table->table_mutex), &table->end_simulation, true);
+		status = -1;
+	}	
 	set_bool(&(table->table_mutex), &(table->all_threads_ready), true);
 	join_philo_threads(table, nbr_philo_threads);
 	set_bool(&(table->table_mutex), &table->end_simulation, true);
